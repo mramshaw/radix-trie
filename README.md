@@ -10,7 +10,7 @@ More particularly, this seems to be a __Patricia tree__ - which I believe is the
 
 ## Motivation
 
-I've been doing a lot of high-level programming lately (RESTful APIS, Scala/Akka) so
+I've been doing a lot of high-level programming lately (RESTful APIs, Scala/Akka) so
 something a little more low-level sounded like a nice change of pace. And it has also
 allowed me to investigate parts of __Go__ that I do not normally run into.
 
@@ -30,19 +30,19 @@ Also, it's a nice opportunity to use
 First seven inserts:
 
 ```
-   1 (romane)   2 (romanus)   3 (romulus)      4 (rubens)      5 (ruber)            6 (rubicon)           7 (rubicundus)
-   |            |             |                |               |                    |                     |
-   r            r             r                r               r                    r                     r
-   |            |             |               / \             / \                  / \                   / \
- omane        oman            om             om  ubens       om  \                om  ub                om  ub
-               / \           / \            / \             / \   \              / \    \              / \    \
-              e   us        an  ulus       an  ulus        an  ulus \           an  ulus  *           an  ulus  *
-                           / \            / \             / \      ube         / \      / \          / \      / \
-                          e  us          e   us          e  us    /   \       e  us    e  icon      e  us    e   \
-                                                                 ns    r              / \                   / \   \
-                                                                                     ns  r                 ns  r   i
-                                                                                                                  / \
-                                                                                                                con  cundus
+  1 (romane)  2 (romanus)  3 (romulus)   4 (rubens)    5 (ruber)         6 (rubicon)        7 (rubicundus)
+  |           |            |             |             |                 |                  |
+  r           r            r             r             r                 r                  r
+  |           |            |            / \           / \               / \                / \
+omane       oman           om          om  ubens     om  \             om  ub             om  ub
+             / \          / \         / \           / \   \           / \    \           / \    \
+            e   us       an ulus    an  ulus      an  ulus \        an  ulus  *        an  ulus  *
+                        / \         / \           / \      ube      / \      / \       / \      / \
+                       e  us       e   us        e  us    /   \    e  us    e  icon   e  us    e   \
+                                                         ns    r           / \                / \   \
+                                                                          ns  r              ns  r   ic
+                                                                                                    / \
+                                                                                                   on undus
 ```
 
 ## To Run
@@ -63,10 +63,10 @@ While I made every effort to code these tests to be as transparent as possible, 
 the results - in terms of being able to `grok` what I am actually testing __for__ - are all that
 easy to sort out. Doing so requires scrolling through pages of tests in order to form an overview.]
 
-On the other hand, this framework allowed me to code up the __Find__ tests - and mock up some data
-to test them with - while I was still working on the __Insert__ tests, whereas previously I would
-have had to complete the __Insert__ tests (and code) in order to test the matching __Find__ code.
-Or maybe do them both in lock-step, step-wise.
+On the other hand, the table-driven test framework allowed me to code up the __Find__ tests - and
+mock up some data to test them with - while I was still working on the __Insert__ tests, whereas
+previously I would have had to complete the __Insert__ tests (and code) in order to test the matching
+__Find__ code.  Or maybe do them both in lock-step, step-wise.
 
 As it is, being able to do them both at the same time has been a great help, at least conceptually.
 
@@ -82,13 +82,13 @@ than for system-wise testing.
 - [ ] Investigate applications of Patricia tries
 - [ ] Find out the idiom for stacking __Insert__ and __Find__ tests
 - [ ] Investigate whether byte-based __and__ rune-based options are viable
-- [ ] Find more examples of tries in use (specifically Rune-based / CJKV {Chinese, Japanese, Korean, Vietnamese})
-- [ ] Find out whether the usual practice is to sort trie entries
+- [ ] Find more examples of tries in use - specifically Rune-based CJKV (Chinese, Japanese, Korean, Vietnamese)
+- [ ] Find out whether the usual practice is to sort trie entries (the Wikipedia example __is__ sorted)
 - [ ] Tests and code for 'retrieve all entries' functionality
 
 ## Credits
 
-This follows on from work four of us did (as a group) over a couple of hours at the local Golang Meetup.
+This follows on from work four of us did as a group in a couple of hours at the local Golang Meetup.
 
 In particular, Dan coded up the original __Table-driven Tests__, which proved very instructive.
 
@@ -102,5 +102,5 @@ As I have departed heavily from the original framework (both __design__ and __im
 
 In particular, I hope opted for a __Rune__-based approach, rather than a __Byte__-based approach. I have opted
 for lazy structures, which is cheaper in terms of memory requirements but possibly costly in performance terms.
-Also, the original effort was to be as efficient as possible, whereas I am not greatly concerned with efficiency
-here. My goal was an __MVP__ (minimum viable product; meaning a proof-of-concept, demo or spike) for learning purposes.
+Also, the original goal was to be as efficient as possible, whereas I am not greatly concerned with efficiency
+here. My goal is an __MVP__ (minimum viable product; meaning a proof-of-concept, demo or spike) for learning purposes.
