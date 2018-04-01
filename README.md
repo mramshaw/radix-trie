@@ -14,7 +14,7 @@ I've been doing a lot of high-level programming lately (RESTful APIs, Scala/Akka
 something a little more low-level sounded like a nice change of pace. And it has also
 allowed me to investigate parts of __Go__ that I do not normally run into.
 
-Also, it's a nice opportunity to use
+More importantly, it's a nice opportunity to use
 [Table-driven testing](https://dave.cheney.net/2013/06/09/writing-table-driven-tests-in-go).
 
 ## Prerequisites
@@ -30,26 +30,39 @@ Also, it's a nice opportunity to use
 First seven inserts:
 
 ```
-  1 (romane)  2 (romanus)  3 (romulus)   4 (rubens)    5 (ruber)         6 (rubicon)        7 (rubicundus)
-  |           |            |             |             |                 |                  |
-  r           r            r             r             r                 r                  r
-  |           |            |            / \           / \               / \                / \
-omane       oman           om          om  ubens     om  \             om  ub             om  ub
-             / \          / \         / \           / \   \           / \    \           / \    \
-            e   us       an ulus    an  ulus      an  ulus \        an  ulus  *        an  ulus  *
-                        / \         / \           / \      ube      / \      / \       / \      / \
-                       e  us       e   us        e  us    /   \    e  us    e  icon   e  us    e   \
-                                                         ns    r           / \                / \   \
-                                                                          ns  r              ns  r   ic
-                                                                                                    / \
-                                                                                                   on undus
+  1 (romane) 2 (romanus) 3 (romulus)   4 (rubens)   5 (ruber)         6 (rubicon)        7 (rubicundus)
+  |          |           |             |            |                 |                  |
+  r          r           r             r            r                 r                  r
+  |          |           |            / \          / \               / \                / \
+omane       oman         om          om  ubens    om  \             om  ub             om  ub
+            / \         / \         / \          / \   \           / \    \           / \    \
+           e   us      an ulus    an  ulus     an  ulus \        an  ulus  *        an  ulus  *
+                      /  \       /  \         /  \      ube     /  \      / \      /  \      / \
+                     e    us    e    us      e    us   /   \   e    us   e  icon  e    us   e   \
+                                                      ns    r           / \                / \   \
+                                                                       ns  r              ns  r  ic
+                                                                                                /  \
+                                                                                              on  undus
 ```
 
 ## To Run
 
 Type the following command:
 
-    make
+    $ make
+
+The results should look as follows:
+
+    GOPATH=/go GOOS=linux GOARCH=amd64 gofmt -d -e -s -w *.go
+    GOPATH=/go GOOS=linux GOARCH=amd64 golint -set_exit_status *.go
+    GOPATH=/go GOOS=linux GOARCH=amd64 go tool vet *.go
+    GOPATH=/go GOOS=linux GOARCH=amd64 go test -v
+    === RUN   TestInsert
+    --- PASS: TestInsert (0.00s)
+    === RUN   TestFind
+    --- PASS: TestFind (0.00s)
+    PASS
+    ok
 
 ## Table-driven Tests
 
@@ -66,12 +79,12 @@ easy to sort out. Doing so requires scrolling through pages of tests in order to
 On the other hand, the table-driven test framework allowed me to code up the __Find__ tests - and
 mock up some data to test them with - while I was still working on the __Insert__ tests, whereas
 previously I would have had to complete the __Insert__ tests (and code) in order to test the matching
-__Find__ code.  Or maybe do them both in lock-step, step-wise.
+__Find__ tests (and code). Or maybe do them both in lock-step, step-wise.
 
 As it is, being able to do them both at the same time has been a great help, at least conceptually.
 
 Looking at examples of this testing style, it seemed like it would be possible to quickly grasp - at
-a high level - what the tests ***were***. But my experience - in practice - is that the framework
+a high level - what the tests ***were***. But my experience - in practice - is that this framework
 still gets very cluttered quite quickly, so that this high-level overview is not really possible.
 
 I still think this approach is great - but I'd probably reserve it for lower-level components, rather
@@ -80,7 +93,7 @@ than for system-wise testing.
 ## To Do
 
 - [ ] Investigate applications of Patricia tries
-- [ ] Find out the idiom for stacking __Insert__ and __Find__ tests
+- [ ] Find out the idiom for stacking __Insert__ and __Find__ tests (avoiding mocks)
 - [ ] Investigate whether byte-based __and__ rune-based options are viable
 - [ ] Find more examples of tries in use - specifically Rune-based CJKV (Chinese, Japanese, Korean, Vietnamese)
 - [ ] Find out whether the usual practice is to sort trie entries (the Wikipedia example __is__ sorted)
@@ -100,7 +113,7 @@ My original fork of this project may be seen here:
 
 As I have departed heavily from the original framework (both __design__ and __implementation__) I created this repo.
 
-In particular, I hope opted for a __Rune__-based approach, rather than a __Byte__-based approach. I have opted
-for lazy structures, which is cheaper in terms of memory requirements but possibly costly in performance terms.
+In particular, I have followed a __Rune__-based approach, rather than a __Byte__-based approach. I have opted
+for lazy structures, which are cheaper in terms of memory requirements but possibly costly in performance terms.
 Also, the original goal was to be as efficient as possible, whereas I am not greatly concerned with efficiency
 here. My goal is an __MVP__ (minimum viable product; meaning a proof-of-concept, demo or spike) for learning purposes.
