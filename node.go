@@ -10,11 +10,8 @@ type node struct {
 	childCount int
 }
 
-func (n *node) setChildNode(newNode *node) bool {
-	//fmt.Printf("settingChildNode: %v\n", newNode)
-	n.childCount++
-	n.children = []*node{newNode}
-	return true
+func (n *node) IsLeaf() bool {
+	return n.childCount == 0
 }
 
 func (n *node) makeChildNode(s string) *node {
@@ -27,6 +24,13 @@ func (n *node) makeChildNode(s string) *node {
 		n.children = append(n.children, &child)
 	}
 	return &child
+}
+
+func (n *node) setChildNode(newNode *node) bool {
+	//fmt.Printf("settingChildNode: %v\n", newNode)
+	n.childCount = 1
+	n.children = []*node{newNode}
+	return true
 }
 
 func makeNode(s string) node {
