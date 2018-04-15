@@ -1,5 +1,11 @@
 # Radix Trie
 
+[![Build status](https://travis-ci.org/mramshaw/radix-trie.svg?branch=master)](https://travis-ci.org/mramshaw/radix-trie)
+[![Coverage Status](http://codecov.io/github/mramshaw/radix-trie/coverage.svg?branch=master)](http://codecov.io/github/mramshaw/radix-trie?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mramshaw/radix-trie?style=flat-square)](https://goreportcard.com/report/github.com/mramshaw/radix-trie)
+[![GoDoc](https://godoc.org/github.com/mramshaw/radix-trie?status.svg)](https://godoc.org/github.com/mramshaw/radix-trie)
+[![GitHub release](https://img.shields.io/github/release/mramshaw/radix-trie.svg?style=flat-square)](https://github.com/mramshaw/radix-trie/releases)
+
 This is mainly based on the [Wikipedia article](https://en.wikipedia.org/wiki/Radix_tree).
 
 Note that a __radix tree__ is a space-optimized [trie](https://en.wikipedia.org/wiki/Trie).
@@ -7,6 +13,20 @@ Note that a __radix tree__ is a space-optimized [trie](https://en.wikipedia.org/
 More particularly, this seems to be a __Patricia tree__ - which I believe is the binary form.
 
 ![Patricia_trie](https://upload.wikimedia.org/wikipedia/commons/a/ae/Patricia_trie.svg)
+
+UPDATE: I found this example (also from Wikipedia) that shows an interesting edge case:
+
+![Edge_case](https://upload.wikimedia.org/wikipedia/commons/6/63/An_example_of_how_to_find_a_string_in_a_Patricia_trie.png)
+
+It shows that __slow__ can be both a node - and a leaf - at the same time, something which
+I had not considered. Interestingly, my understanding was that the root node of the trie
+(trie apparently comes from _retrieval_ - although I have my doubts about this) was always
+a single character whereas this diagram shows the root node as the entire word `slow`.
+
+For retrieval purposes I am inclined to persist with using a single character as a root.
+The only practical purpose for a trie that I have been able to find is for search bars
+and the like and being able to respond quickly to that first typed character sounds like
+what I am after.
 
 ## Motivation
 
