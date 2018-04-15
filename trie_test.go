@@ -144,10 +144,11 @@ func TestInsert(t *testing.T) {
 
 func TestFind(t *testing.T) {
 	tests := []struct {
-		name  string
-		value string
-		trie  Trie
-		found bool
+		name   string
+		value  string
+		trie   Trie
+		found  bool
+		isLeaf bool
 	}{
 		{
 			name:  "find nonexistent element in trie",
@@ -157,7 +158,8 @@ func TestFind(t *testing.T) {
 				children: []*node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
-			found: false,
+			found:  false,
+			isLeaf: false,
 		},
 		{
 			name:  "find existing element in trie",
@@ -167,7 +169,8 @@ func TestFind(t *testing.T) {
 				children: []*node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find trimmed existing element in trie",
@@ -177,7 +180,8 @@ func TestFind(t *testing.T) {
 				children: []*node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing element in trie with two elements",
@@ -188,7 +192,8 @@ func TestFind(t *testing.T) {
 					children: []*node{{value: "e", childCount: 0},
 						{value: "us", childCount: 0}},
 					childCount: 2}}, childCount: 1}}, count: 2},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing second element in trie with two elements",
@@ -199,7 +204,8 @@ func TestFind(t *testing.T) {
 					children: []*node{{value: "e", childCount: 0},
 						{value: "us", childCount: 0}},
 					childCount: 2}}, childCount: 1}}, count: 2},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing element in trie with three elements",
@@ -212,7 +218,8 @@ func TestFind(t *testing.T) {
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing second element in trie with three elements",
@@ -225,7 +232,8 @@ func TestFind(t *testing.T) {
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing third element in trie with three elements",
@@ -238,7 +246,8 @@ func TestFind(t *testing.T) {
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing fourth element in trie with four elements",
@@ -252,7 +261,8 @@ func TestFind(t *testing.T) {
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
 					{value: "ubens", childCount: 0}}, childCount: 1}}, count: 4},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing fifth element in trie with five elements",
@@ -269,7 +279,8 @@ func TestFind(t *testing.T) {
 						children: []*node{{value: "ns", childCount: 0},
 							{value: "r", childCount: 0}},
 						childCount: 2}}, childCount: 1}}, count: 5},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing sixth element in trie with six elements",
@@ -288,7 +299,8 @@ func TestFind(t *testing.T) {
 								{value: "r", childCount: 0}}, childCount: 2},
 							{value: "icon", childCount: 0}}, childCount: 2}},
 				childCount: 1}}, count: 6},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing sixth element in trie with seven elements",
@@ -310,7 +322,8 @@ func TestFind(t *testing.T) {
 									{value: "undus", childCount: 0}},
 								childCount: 2}},
 						childCount: 2}}, childCount: 1}}, count: 7},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 		{
 			name:  "find existing seventh element in trie with seven elements",
@@ -332,7 +345,8 @@ func TestFind(t *testing.T) {
 									{value: "undus", childCount: 0}},
 								childCount: 2}},
 						childCount: 2}}, childCount: 1}}, count: 7},
-			found: true,
+			found:  true,
+			isLeaf: true,
 		},
 	}
 
@@ -341,5 +355,12 @@ func TestFind(t *testing.T) {
 		if found != test.found {
 			t.Errorf("test '%s': expected found to be %t", test.name, test.found)
 		}
+		/*
+			if found {
+				if isLeaf != test.isLeaf {
+					t.Errorf("test '%s': expected isLeaf to be %t", test.name, test.isLeaf)
+				}
+			}
+		*/
 	}
 }
