@@ -31,9 +31,9 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie existing element",
 			value: "romane",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{
+				children: []*Node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
 			expectedCount: 1,
@@ -42,9 +42,9 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with one element",
 			value: "romanus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{
+				children: []*Node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
 			expectedCount: 2,
@@ -53,10 +53,10 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with two elements",
 			value: "romulus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "oman",
-					children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "oman",
+					children: []*Node{{value: "e", childCount: 0},
 						{value: "us", childCount: 0}},
 					childCount: 2}}, childCount: 1}}, count: 2},
 			expectedCount: 3,
@@ -65,11 +65,11 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with three elements",
 			value: "rubens",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}}}, childCount: 1}}, count: 3},
@@ -79,11 +79,11 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with four elements",
 			value: "ruber",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
@@ -94,16 +94,16 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with five elements",
 			value: "rubicon",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
 					{value: "ube",
-						children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "ns", childCount: 0},
 							{value: "r", childCount: 0}},
 						childCount: 2}}, childCount: 1}}, count: 5},
 			expectedCount: 6,
@@ -112,17 +112,17 @@ func TestInsert(t *testing.T) {
 		{
 			name:  "insert into trie with six elements",
 			value: "rubicundus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2},
 					{value: "ub",
-						children: []*node{{value: "e",
-							children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "e",
+							children: []*Node{{value: "ns", childCount: 0},
 								{value: "r", childCount: 0}}, childCount: 2},
 							{value: "icon", childCount: 0}}, childCount: 2}},
 				childCount: 1}}, count: 6},
@@ -153,9 +153,9 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find nonexistent element in trie",
 			value: "romanus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{
+				children: []*Node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
 			found:  false,
@@ -164,9 +164,9 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing element in trie",
 			value: "romane",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{
+				children: []*Node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
 			found:  true,
@@ -175,9 +175,9 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find trimmed existing element in trie",
 			value: " romane\n",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{
+				children: []*Node{
 					{value: "omane", childCount: 0}},
 				childCount: 1}}, count: 1},
 			found:  true,
@@ -186,10 +186,10 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing element in trie with two elements",
 			value: "romane",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "oman",
-					children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "oman",
+					children: []*Node{{value: "e", childCount: 0},
 						{value: "us", childCount: 0}},
 					childCount: 2}}, childCount: 1}}, count: 2},
 			found:  true,
@@ -198,10 +198,10 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing second element in trie with two elements",
 			value: "romanus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "oman",
-					children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "oman",
+					children: []*Node{{value: "e", childCount: 0},
 						{value: "us", childCount: 0}},
 					childCount: 2}}, childCount: 1}}, count: 2},
 			found:  true,
@@ -210,11 +210,11 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing element in trie with three elements",
 			value: "romane",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
@@ -224,11 +224,11 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing second element in trie with three elements",
 			value: "romanus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
@@ -238,11 +238,11 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing third element in trie with three elements",
 			value: "romulus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2}}, childCount: 1}}, count: 3},
@@ -252,11 +252,11 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing fourth element in trie with four elements",
 			value: "rubens",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
@@ -267,16 +267,16 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing fifth element in trie with five elements",
 			value: "ruber",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
 					{value: "ube",
-						children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "ns", childCount: 0},
 							{value: "r", childCount: 0}},
 						childCount: 2}}, childCount: 1}}, count: 5},
 			found:  true,
@@ -285,17 +285,17 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing sixth element in trie with six elements",
 			value: "rubicon",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}, childCount: 2},
 					{value: "ub",
-						children: []*node{{value: "e",
-							children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "e",
+							children: []*Node{{value: "ns", childCount: 0},
 								{value: "r", childCount: 0}}, childCount: 2},
 							{value: "icon", childCount: 0}}, childCount: 2}},
 				childCount: 1}}, count: 6},
@@ -305,20 +305,20 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing sixth element in trie with seven elements",
 			value: "rubicon",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
 					{value: "ub",
-						children: []*node{{value: "e",
-							children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "e",
+							children: []*Node{{value: "ns", childCount: 0},
 								{value: "r", childCount: 0}}, childCount: 2},
 							{value: "ic",
-								children: []*node{{value: "on", childCount: 0},
+								children: []*Node{{value: "on", childCount: 0},
 									{value: "undus", childCount: 0}},
 								childCount: 2}},
 						childCount: 2}}, childCount: 1}}, count: 7},
@@ -328,20 +328,20 @@ func TestFind(t *testing.T) {
 		{
 			name:  "find existing seventh element in trie with seven elements",
 			value: "rubicundus",
-			trie: Trie{child: []*node{{
+			trie: Trie{child: []*Node{{
 				value: "r",
-				children: []*node{{value: "om",
-					children: []*node{{value: "an",
-						children: []*node{{value: "e", childCount: 0},
+				children: []*Node{{value: "om",
+					children: []*Node{{value: "an",
+						children: []*Node{{value: "e", childCount: 0},
 							{value: "us", childCount: 0}},
 						childCount: 2},
 						{value: "ulus", childCount: 0}}},
 					{value: "ub",
-						children: []*node{{value: "e",
-							children: []*node{{value: "ns", childCount: 0},
+						children: []*Node{{value: "e",
+							children: []*Node{{value: "ns", childCount: 0},
 								{value: "r", childCount: 0}}, childCount: 2},
 							{value: "ic",
-								children: []*node{{value: "on", childCount: 0},
+								children: []*Node{{value: "on", childCount: 0},
 									{value: "undus", childCount: 0}},
 								childCount: 2}},
 						childCount: 2}}, childCount: 1}}, count: 7},
@@ -351,16 +351,14 @@ func TestFind(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		found := test.trie.Find(test.value)
+		found, n := test.trie.Find(test.value)
 		if found != test.found {
 			t.Errorf("test '%s': expected found to be %t", test.name, test.found)
 		}
-		/*
-			if found {
-				if isLeaf != test.isLeaf {
-					t.Errorf("test '%s': expected isLeaf to be %t", test.name, test.isLeaf)
-				}
+		if found {
+			if n.IsLeaf() != test.isLeaf {
+				t.Errorf("test '%s': expected isLeaf to be %t", test.name, test.isLeaf)
 			}
-		*/
+		}
 	}
 }

@@ -108,7 +108,7 @@ a high level - what the tests ***were***. But my experience - in practice - is t
 still gets very cluttered quite quickly, so that this high-level overview is not really possible.
 
 I still think this approach is great - but I'd probably reserve it for lower-level components, rather
-than for system-wise testing.
+than for system testing.
 
 ## To Do
 

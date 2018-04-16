@@ -1,3 +1,4 @@
+// Package trie provides primitives for processing radix tries.
 package trie
 
 import (
@@ -7,16 +8,16 @@ import (
 
 // Trie is a radix trie implementation.
 type Trie struct {
-	child []*node
+	child []*Node
 	count int
 }
 
-// NewTrie is used to create a new Trie.
+// NewTrie is used to create a new radix trie.
 func NewTrie() *Trie {
 	return &Trie{}
 }
 
-// Count returns the number of nodes in the Trie.
+// Count returns the number of nodes in the trie.
 func (t *Trie) Count() int {
 	return t.count
 }
@@ -25,7 +26,9 @@ func (t *Trie) isEmpty() bool {
 	return t.count == 0
 }
 
-// Insert is used to add a new term to the Trie.
+// Insert is used to add a new term to the trie.
+// If successful, this will create one or more child
+// nodes.
 func (t *Trie) Insert(s string) bool {
 
 	// remove leading & trailing whitespace
@@ -59,7 +62,7 @@ func (t *Trie) Insert(s string) bool {
 	return true
 }
 
-func (t *Trie) insertRuneNode(parent *node, n *node, s string) bool {
+func (t *Trie) insertRuneNode(parent *Node, n *Node, s string) bool {
 
 	for _, c := range n.children {
 		index := t.findRuneMatch(c.value, s)
@@ -95,27 +98,28 @@ func (t *Trie) insertRuneNode(parent *node, n *node, s string) bool {
 func (t *Trie) makeRuneNode(s string) {
 	rootRune := makeNode(s[:1])
 	rootChild := makeNode(s[1:])
-	rootRune.children = []*node{&rootChild}
+	rootRune.children = []*Node{&rootChild}
 	rootRune.childCount = 1
-	t.child = []*node{&rootRune}
+	t.child = []*Node{&rootRune}
 	t.count++
 }
 
-// Find is used to search for a specific term in the Trie.
-func (t *Trie) Find(s string) bool {
+// Find is used to search for a specific term in the trie.
+func (t *Trie) Find(s string) (bool, *Node) {
 
 	// Remove leading & trailing whitespace
 	trimmed := strings.TrimSpace(s)
 
 	// Sanity check (should catch empty strings too)
 	if len(s) < 2 {
-		return false
+		return false, nil
 	}
 
-	return t.findNode(trimmed) != nil
+	n := t.findNode(trimmed)
+	return n != nil, n
 }
 
-func (t *Trie) findNode(s string) *node {
+func (t *Trie) findNode(s string) *Node {
 
 	for _, c := range t.child {
 		if c.value == s[:1] {
@@ -129,7 +133,7 @@ func (t *Trie) findNode(s string) *node {
 	return nil
 }
 
-func (t *Trie) findRuneNode(n *node, s string) *node {
+func (t *Trie) findRuneNode(n *Node, s string) *Node {
 
 	for _, c := range n.children {
 		index := t.findRuneMatch(c.value, s)

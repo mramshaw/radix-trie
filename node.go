@@ -4,36 +4,38 @@ import (
 //"fmt"
 )
 
-type node struct {
+// Node is a radix trie node (which may also be a leaf).
+type Node struct {
 	value      string
-	children   []*node
+	children   []*Node
 	childCount int
 }
 
-func (n *node) IsLeaf() bool {
+// IsLeaf may be called to determine of the current node is a leaf.
+func (n *Node) IsLeaf() bool {
 	return n.childCount == 0
 }
 
-func (n *node) makeChildNode(s string) *node {
+func (n *Node) makeChildNode(s string) *Node {
 	//fmt.Printf("makingChildNode: %s\n", s)
 	child := makeNode(s)
 	n.childCount++
 	if n.children == nil {
-		n.children = []*node{&child}
+		n.children = []*Node{&child}
 	} else {
 		n.children = append(n.children, &child)
 	}
 	return &child
 }
 
-func (n *node) setChildNode(newNode *node) bool {
+func (n *Node) setChildNode(newNode *Node) bool {
 	//fmt.Printf("settingChildNode: %v\n", newNode)
 	n.childCount = 1
-	n.children = []*node{newNode}
+	n.children = []*Node{newNode}
 	return true
 }
 
-func makeNode(s string) node {
+func makeNode(s string) Node {
 	//fmt.Printf("makingNode: %s\n", s)
-	return node{value: s, childCount: 0}
+	return Node{value: s, childCount: 0}
 }
