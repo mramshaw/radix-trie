@@ -11,7 +11,7 @@ type Node struct {
 	childCount int
 }
 
-// IsLeaf may be called to determine of the current node is a leaf.
+// IsLeaf may be called to determine if the current node is a leaf.
 func (n *Node) IsLeaf() bool {
 	return n.childCount == 0
 }

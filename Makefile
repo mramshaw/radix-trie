@@ -1,20 +1,24 @@
-GOPATH		:= /go
 GOOS		:= linux
 GOARCH		:= amd64
 
-.PHONY:		run, clean
+.PHONY:		clean
 
 all:		test
 
 # .go files are reformatted to conform to gofmt standards
 fmt:
-		GOPATH=$(GOPATH) GOOS=$(GOOS) GOARCH=$(GOARCH) gofmt -d -e -s -w *.go
+		GOOS=$(GOOS) GOARCH=$(GOARCH) gofmt -d -e -s -w *.go
 
 lint:		fmt
-		GOPATH=$(GOPATH) GOOS=$(GOOS) GOARCH=$(GOARCH) golint -set_exit_status *.go
+		GOOS=$(GOOS) GOARCH=$(GOARCH) golint -set_exit_status *.go
 
 vet:		lint
-		GOPATH=$(GOPATH) GOOS=$(GOOS) GOARCH=$(GOARCH) go tool vet *.go
+		GOOS=$(GOOS) GOARCH=$(GOARCH) go tool vet *.go
 
 test:		vet
-		GOPATH=$(GOPATH) GOOS=$(GOOS) GOARCH=$(GOARCH) go test -v
+		GOOS=$(GOOS) GOARCH=$(GOARCH) go test -race -coverprofile=coverage.txt -covermode=atomic -v .
+		GOOS=$(GOOS) GOARCH=$(GOARCH) go tool cover -html=coverage.txt -o coverage.html
+
+clean:
+		@rm -f coverage.html
+		@rm -f coverage.txt

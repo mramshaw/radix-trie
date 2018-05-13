@@ -13,8 +13,8 @@ type Trie struct {
 }
 
 // NewTrie is used to create a new radix trie.
-func NewTrie() *Trie {
-	return &Trie{}
+func NewTrie() Trie {
+	return Trie{}
 }
 
 // Count returns the number of nodes in the trie.
@@ -111,7 +111,7 @@ func (t *Trie) Find(s string) (bool, *Node) {
 	trimmed := strings.TrimSpace(s)
 
 	// Sanity check (should catch empty strings too)
-	if len(s) < 2 {
+	if len(trimmed) < 2 {
 		return false, nil
 	}
 

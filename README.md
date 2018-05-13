@@ -18,15 +18,17 @@ UPDATE: I found this example (also from Wikipedia) that shows an interesting edg
 
 ![Edge_case](https://upload.wikimedia.org/wikipedia/commons/6/63/An_example_of_how_to_find_a_string_in_a_Patricia_trie.png)
 
-It shows that __slow__ can be both a node - and a leaf - at the same time, something which
-I had not considered. Interestingly, my understanding was that the root node of the trie
-(trie apparently comes from _retrieval_ - although I have my doubts about this) was always
-a single character whereas this diagram shows the root node as the entire word `slow`.
+It shows that __slow__ can be both a node - and a leaf - at the same time. This is something
+which I had not considered (another example might be __real__ and __realistic__). Interestingly,
+my understanding was that the root node of the trie (it may - or may not - be true that trie
+comes from _retrieval_) is always a single character whereas this diagram shows the root node
+as the entire word `slow`.
 
 For retrieval purposes I am inclined to persist with using a single character as a root.
 The only practical purpose for a trie that I have been able to find is for search bars
 and the like and being able to respond quickly to that first typed character sounds like
-what I am after.
+what I am after. In the case of __bytes__ this would make it possible to use the initial
+byte as an offset index, although I doubt this would be practical for runes.
 
 ## Motivation
 
@@ -113,6 +115,7 @@ than for system testing.
 ## To Do
 
 - [ ] Investigate applications of Patricia tries
+- [x] Refactor tests to avoid some of the duplicated code
 - [ ] Find out the idiom for stacking __Insert__ and __Find__ tests (avoiding mocks)
 - [ ] Investigate whether byte-based __and__ rune-based options are viable
 - [ ] Find more examples of tries in use - specifically Rune-based CJKV (Chinese, Japanese, Korean, Vietnamese)
