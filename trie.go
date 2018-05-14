@@ -70,19 +70,20 @@ func (t *Trie) insertRuneNode(parent *Node, n *Node, s string) bool {
 		lenC := len(c.value)
 		if index > 0 {
 			if index == lenC {
-				return t.insertRuneNode(parent, c, s[index:])
+				return t.insertRuneNode(c, c, s[index:])
 			}
 			if index < lenC {
-				child := c.makeChildNode(c.value[index:])
+				child := c.makeChildNode(c.value[index:], true)
 				child.children = c.children
-				child.childCount = c.childCount
+				child.childCount = 0
 				c.setChildNode(child)
 				//fmt.Printf("c.value: %s\n", c.value)
 				c.value = c.value[:index]
 				//fmt.Printf("c.value: %s\n", c.value)
+				c.entry = false
 			}
 			//fmt.Printf("making child node: %s\n", s[index:])
-			c.makeChildNode(s[index:])
+			c.makeChildNode(s[index:], true)
 			t.count++
 			return true
 		}
@@ -90,14 +91,14 @@ func (t *Trie) insertRuneNode(parent *Node, n *Node, s string) bool {
 
 	// No match in the children so attach to the parent node
 	//fmt.Printf("parented.value2: %s\n", s)
-	parent.makeChildNode(s)
+	parent.makeChildNode(s, true)
 	t.count++
 	return true
 }
 
 func (t *Trie) makeRuneNode(s string) {
-	rootRune := makeNode(s[:1])
-	rootChild := makeNode(s[1:])
+	rootRune := makeNode(s[:1], false)
+	rootChild := makeNode(s[1:], true)
 	rootRune.children = []*Node{&rootChild}
 	rootRune.childCount = 1
 	t.child = []*Node{&rootRune}

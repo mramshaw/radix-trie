@@ -116,7 +116,8 @@ than for system testing.
 
 - [ ] Investigate applications of Patricia tries
 - [x] Refactor tests to avoid some of the duplicated code
-- [ ] Find out the idiom for stacking __Insert__ and __Find__ tests (avoiding mocks)
+- [x] Add code and tests to allow for entries such as "slow", "slower", "slowly"
+- [x] Find out the idiom for stacking __Insert__ and __Find__ tests (avoiding mocks)
 - [ ] Investigate whether byte-based __and__ rune-based options are viable
 - [ ] Find more examples of tries in use - specifically Rune-based CJKV (Chinese, Japanese, Korean, Vietnamese)
 - [ ] Find out whether the usual practice is to sort trie entries (the Wikipedia example __is__ sorted)
