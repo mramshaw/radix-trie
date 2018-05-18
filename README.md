@@ -10,7 +10,18 @@ This is mainly based on the [Wikipedia article](https://en.wikipedia.org/wiki/Ra
 
 Note that a __radix tree__ is a space-optimized [trie](https://en.wikipedia.org/wiki/Trie).
 
-More particularly, this seems to be a __Patricia tree__ - which I believe is the binary form.
+According to the article cited above, tries were first suggested in 1959 by a Frenchman
+named René de la Briandais (`tri` is French for `sort`). According to Donald Knuth’s
+research in The Art of Computer Programming:
+
+> Trie memory for computer searching was first recommended by René de la Briandais.
+> He pointed out that we can save memory space at the expense of running time if we
+> use a linked list for each node vector, since most of the entries in the vectors
+> tend to be empty.
+
+[Note that this is not the approach being followed here.]
+
+More particularly, this seems to be a __Patricia trie__ - which I believe is the binary form.
 
 ![Patricia_trie](https://upload.wikimedia.org/wikipedia/commons/a/ae/Patricia_trie.svg)
 
@@ -25,10 +36,10 @@ comes from _retrieval_) is always a single character whereas this diagram shows 
 as the entire word `slow`.
 
 For retrieval purposes I am inclined to persist with using a single character as a root.
-The only practical purpose for a trie that I have been able to find is for search bars
-and the like and being able to respond quickly to that first typed character sounds like
-what I am after. In the case of __bytes__ this would make it possible to use the initial
-byte as an offset index, although I doubt this would be practical for runes.
+The only uses for a trie that I have been able to find are spell-checking and autocomplete
+for search bars and the like. So being able to respond quickly to that first typed character
+sounds like what I am after. In the case of __bytes__ this would make it possible to use
+the initial byte as an offset index, although I doubt this would be practical for runes.
 
 ## Motivation
 
