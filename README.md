@@ -131,6 +131,7 @@ than for system testing.
 - [x] Find out the idiom for stacking __Insert__ and __Find__ tests (avoiding mocks)
 - [ ] Investigate whether byte-based __and__ rune-based options are viable
 - [ ] Find more examples of tries in use - specifically Rune-based CJKV (Chinese, Japanese, Korean, Vietnamese)
+- [x] Add example of Chinese Rune-based trie
 - [ ] Find out whether the usual practice is to sort trie entries (the Wikipedia example __is__ sorted)
 - [ ] Tests and code for 'retrieve all entries' functionality
 

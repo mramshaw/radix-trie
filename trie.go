@@ -4,6 +4,7 @@ package trie
 import (
 	//  "fmt"
 	"strings"
+	"unicode/utf8"
 )
 
 // Trie is a radix trie implementation.
@@ -28,7 +29,9 @@ func (t *Trie) isEmpty() bool {
 
 // Insert is used to add a new term to the trie.
 // If successful, this will create one or more child
-// nodes.
+// nodes. Validate for length: in the case of runes,
+// it makes no sense to add a rune sequence unless it
+// consists of more than one rune.
 func (t *Trie) Insert(s string) bool {
 
 	// remove leading & trailing whitespace
@@ -36,6 +39,11 @@ func (t *Trie) Insert(s string) bool {
 
 	// Sanity check (should catch empty strings too)
 	if len(trimmed) < 2 {
+		return false
+	}
+
+	// Sanity check (same again but for runes)
+	if utf8.RuneCount([]byte(s)) < 2 {
 		return false
 	}
 

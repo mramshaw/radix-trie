@@ -27,6 +27,56 @@ func TestIsNotEmpty(t *testing.T) {
 	}
 }
 
+func TestInsertChinese(t *testing.T) {
+
+	insertTests := []struct {
+		name          string
+		value         string
+		trie          Trie
+		expectedCount int
+		inserted      bool
+	}{
+		{
+			name:          "insert into empty trie (empty string)",
+			value:         "",
+			trie:          getStringTrie(0, "大"),
+			expectedCount: 0,
+			inserted:      false,
+		},
+		{
+			name:          "insert into empty trie (chinese ideogram)",
+			value:         "大",
+			trie:          getStringTrie(0, "大"),
+			expectedCount: 0,
+			inserted:      false,
+		},
+		{
+			name:          "insert into empty trie (chinese Garlic)",
+			value:         "大蒜",
+			trie:          getStringTrie(0, "大"),
+			expectedCount: 1,
+			inserted:      true,
+		},
+		{
+			name:          "insert into trie existing element (chinese Soybean)",
+			value:         "大豆",
+			trie:          getStringTrie(1, "大"),
+			expectedCount: 2,
+			inserted:      true,
+		},
+	}
+
+	for _, test := range insertTests {
+		inserted := test.trie.Insert(test.value)
+		if inserted != test.inserted {
+			t.Errorf("test '%s': expected inserted to be %t", test.name, test.inserted)
+		}
+		if test.trie.Count() != test.expectedCount {
+			t.Errorf("test '%s': expected count to be %d, but was %d", test.name, test.expectedCount, test.trie.Count())
+		}
+	}
+}
+
 func TestInsertR(t *testing.T) {
 
 	insertTests := []struct {
@@ -172,6 +222,85 @@ func TestInsertS(t *testing.T) {
 		}
 		if test.trie.Count() != test.expectedCount {
 			t.Errorf("test 's' '%s': expected count to be %d, but was %d", test.name, test.expectedCount, test.trie.Count())
+		}
+	}
+}
+
+func TestInsertFindChinese(t *testing.T) {
+
+	trie := NewTrie()
+
+	insertTests := []struct {
+		name          string
+		value         string
+		expectedCount int
+		inserted      bool
+	}{
+		{
+			name:          "insert into empty trie (chinese ideogram)",
+			value:         "大",
+			expectedCount: 0,
+			inserted:      false,
+		},
+		{
+			name:          "insert into empty trie (chinese Garlic)",
+			value:         "大蒜",
+			expectedCount: 1,
+			inserted:      true,
+		},
+		{
+			name:          "insert into trie existing element (chinese Soybean)",
+			value:         "大豆",
+			expectedCount: 2,
+			inserted:      true,
+		},
+	}
+
+	for _, test := range insertTests {
+		inserted := trie.Insert(test.value)
+		if inserted != test.inserted {
+			t.Errorf("test '%s': expected inserted to be %t", test.name, test.inserted)
+		}
+		if trie.Count() != test.expectedCount {
+			t.Errorf("test '%s': expected count to be %d, but was %d", test.name, test.expectedCount, trie.Count())
+		}
+	}
+
+	findTests := []struct {
+		name    string
+		value   string
+		found   bool
+		isEntry bool
+		isLeaf  bool
+	}{
+		{
+			name:    "find existing element (chinese Garlic) in Chinese trie with two elements",
+			value:   "大蒜",
+			found:   true,
+			isEntry: true,
+			isLeaf:  true,
+		},
+		{
+			name:    "find existing second element (chinese Soybean) in Chinese trie with two elements",
+			value:   "大豆",
+			found:   true,
+			isEntry: true,
+			isLeaf:  true,
+		},
+	}
+
+	for _, test := range findTests {
+		found, n := trie.Find(test.value)
+		if found != test.found {
+			t.Errorf("test '%s': expected found to be %t", test.name, test.found)
+		}
+		if found {
+			if n.IsEntry() != test.isEntry {
+				t.Errorf("test '%s': expected isEntry to be %t", test.name, test.isEntry)
+			}
+			if n.IsLeaf() != test.isLeaf {
+				t.Errorf("test '%s': expected isLeaf to be %t", test.name, test.isLeaf)
+			}
 		}
 	}
 }
@@ -552,6 +681,31 @@ func getTrie(nodes int, prefix byte) Trie {
 						{value: "ing", childCount: 0, entry: true}},
 					childCount: 2, entry: false}},
 				childCount: 2, entry: false}}, count: 3}
+		}
+	}
+	return emptyTrie
+}
+
+func getStringTrie(nodes int, prefix string) Trie {
+
+	emptyTrie := NewTrie()
+	if nodes == 0 {
+		return emptyTrie
+	}
+	if prefix == "大" {
+		if nodes == 1 {
+			return Trie{child: []*Node{{
+				value: "大",
+				children: []*Node{
+					{value: "蒜", childCount: 0, entry: true}},
+				childCount: 1, entry: false}}, count: 1}
+		}
+		if nodes == 2 {
+			return Trie{child: []*Node{{
+				value: "大",
+				children: []*Node{{value: "蒜",
+					childCount: 0, entry: true}, {value: "豆",
+					childCount: 0, entry: true}}, childCount: 1, entry: false}}, count: 2}
 		}
 	}
 	return emptyTrie
