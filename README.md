@@ -123,6 +123,13 @@ still gets very cluttered quite quickly, so that this high-level overview is not
 I still think this approach is great - but I'd probably reserve it for lower-level components, rather
 than for system testing.
 
+UPDATE: One nice feature of Table-driven Tests is that they are very easily extended. For instance,
+it can be trivially simple to add a new edge case (such as the empty string - "" - for example) with
+a few new lines of code (it may not always be this simple, but it's easy to think of these types of
+examples where extending a table-driven test for a new edge case is far easier than having to write
+an entirely new test). More tests is almost always better than less, so being able to add edge cases
+in a very simple way seems like a good approach to encourage more and better testing.
+
 ## To Do
 
 - [ ] Investigate applications of Patricia tries
