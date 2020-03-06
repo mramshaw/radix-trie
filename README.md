@@ -4,7 +4,7 @@
 [![Coverage Status](http://codecov.io/github/mramshaw/radix-trie/coverage.svg?branch=master)](http://codecov.io/github/mramshaw/radix-trie?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mramshaw/radix-trie?style=flat-square)](https://goreportcard.com/report/github.com/mramshaw/radix-trie)
 [![GoDoc](https://godoc.org/github.com/mramshaw/radix-trie?status.svg)](https://godoc.org/github.com/mramshaw/radix-trie)
-[![GitHub release](https://img.shields.io/github/release/mramshaw/radix-trie.svg?style=flat-square)](https://github.com/mramshaw/radix-trie/releases)
+[![GitHub release](https://img.shields.io/github/v/release/mramshaw/radix-trie?style=flat-square)](https://github.com/mramshaw/radix-trie/releases)
 
 This is mainly based on the [Wikipedia article](https://en.wikipedia.org/wiki/Radix_tree).
 
@@ -141,6 +141,8 @@ in a very simple way seems like a good approach to encourage more and better tes
 - [x] Add example of Chinese Rune-based trie
 - [ ] Find out whether the usual practice is to sort trie entries (the Wikipedia example __is__ sorted)
 - [ ] Tests and code for 'retrieve all entries' functionality
+- [x] Upgrade to latest release of Golang (1.14 as of the time of writing)
+- [x] Upgrade `release` badge to confomr to new Shields.io standards
 
 ## Credits
 

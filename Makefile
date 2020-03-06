@@ -13,7 +13,7 @@ lint:		fmt
 		GOOS=$(GOOS) GOARCH=$(GOARCH) golint -set_exit_status *.go
 
 vet:		lint
-		GOOS=$(GOOS) GOARCH=$(GOARCH) go tool vet *.go
+		GOOS=$(GOOS) GOARCH=$(GOARCH) go vet *.go
 
 test:		vet
 		GOOS=$(GOOS) GOARCH=$(GOARCH) go test -race -coverprofile=coverage.txt -covermode=atomic -v .
